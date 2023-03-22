@@ -1,5 +1,6 @@
 <?php
 
+use App\Http\Controllers\AuthenticationController;
 use App\Http\Controllers\ContestController;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
@@ -15,6 +16,9 @@ use Illuminate\Support\Facades\Route;
 |
 */
 
-Route::get('/contest',[ContestController::class, 'index']);
-Route::get('/contest/{id}',[ContestController::class, 'show']);
+Route::get('/contest',[ContestController::class, 'index'])->middleware(['auth:sanctum']);
+Route::get('/contest/{id}',[ContestController::class, 'show'])->middleware(['auth:sanctum']);
 Route::get('/contest2/{id}',[ContestController::class, 'show2']);
+
+Route::post('/register', [AuthenticationController::class, '__invoke']);
+Route::post('/login', [AuthenticationController::class, 'login']);
