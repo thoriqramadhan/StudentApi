@@ -4,7 +4,7 @@ namespace App\Http\Resources;
 
 use Illuminate\Http\Resources\Json\JsonResource;
 
-class ContestResource extends JsonResource
+class ContestDetailResource extends JsonResource
 {
     /**
      * Transform the resource into an array.
@@ -18,7 +18,9 @@ class ContestResource extends JsonResource
             'id' => $this->id,
             'title' => $this->title,
             'level' => $this->level,
-
+            'author_id' => $this->author,
+            'uploader' => $this ->whenLoaded('uploader'),
+            // 'created_at' => $this->created_at,
             'created_at' => date_format($this->created_at, "Y/m/d H:i:s"),
         ];
     }

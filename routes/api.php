@@ -16,3 +16,5 @@ use Illuminate\Support\Facades\Route;
 */
 
 Route::get('/contest',[ContestController::class, 'index']);
+Route::get('/contest/{id}',[ContestController::class, 'show']);
+Route::get('/contest2/{id}',[ContestController::class, 'show2']);
