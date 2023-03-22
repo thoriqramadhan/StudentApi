@@ -18,9 +18,11 @@ use Illuminate\Support\Facades\Route;
 Route::middleware(['auth:sanctum'])->group(function(){
     Route::get('/contest',[ContestController::class, 'index']);
     Route::get('/contest/{id}',[ContestController::class, 'show']);
+    Route::post('/contest', [ContestController::class, 'store']);
+    Route::patch('/contest/{id}', [ContestController::class, 'update']);
+
     Route::get('/logout', [AuthenticationController::class, 'logout']);
     Route::get('/user', [AuthenticationController::class, 'checkUser']);
-    Route::post('/contest', [ContestController::class, 'store']);
 });
 Route::get('/contest2/{id}',[ContestController::class, 'show2']);
 

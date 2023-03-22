@@ -35,4 +35,12 @@ class ContestController extends Controller
         $contest = Contest::create($request->all());
         return new ContestDetailResource($contest->loadMissing('uploader:id,name'));
     }
+    public function update(Request $request, $id){
+        $request -> validate([
+            'title' => 'required|max:255',
+            'level' => 'required'
+        ]);
+
+        return response()->json('sudah dapat digunakan');
+    }
 }
