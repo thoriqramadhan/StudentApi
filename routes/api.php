@@ -15,10 +15,15 @@ use Illuminate\Support\Facades\Route;
 | is assigned the "api" middleware group. Enjoy building your API!
 |
 */
-
-Route::get('/contest',[ContestController::class, 'index'])->middleware(['auth:sanctum']);
-Route::get('/contest/{id}',[ContestController::class, 'show'])->middleware(['auth:sanctum']);
+Route::middleware(['auth:sanctum'])->group(function(){
+    Route::get('/contest',[ContestController::class, 'index']);
+    Route::get('/contest/{id}',[ContestController::class, 'show']);
+    Route::get('/logout', [AuthenticationController::class, 'logout']);
+    Route::get('/user', [AuthenticationController::class, 'checkUser']);
+    Route::post('/contest', [ContestController::class, 'store']);
+});
 Route::get('/contest2/{id}',[ContestController::class, 'show2']);
 
+// Authentication
 Route::post('/register', [AuthenticationController::class, '__invoke']);
 Route::post('/login', [AuthenticationController::class, 'login']);

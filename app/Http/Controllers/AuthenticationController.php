@@ -4,13 +4,14 @@ namespace App\Http\Controllers;
 
 use App\Models\User;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Hash;
 use Illuminate\Support\Facades\Validator;
 use Illuminate\Validation\ValidationException;
 
 class AuthenticationController extends Controller
 {
-    public function __invoke(Request $request){
+    public function __invoke(Request $request){  // Register
         $validator = Validator::make($request->all(), [
             'name' => 'required',
             'email' => 'required|email|unique:users',
@@ -56,5 +57,17 @@ class AuthenticationController extends Controller
 
         return $user->createToken('user login')->plainTextToken;
 
+    }
+    public function logout(Request $request){
+        $request->user()->currentAccessToken()->delete();
+
+        return response()->json([
+            'message' => 'berhasil logout'
+        ]);
+    }
+
+    public function checkUser(){
+        $user = Auth::user();
+        return response()->json($user);
     }
 }

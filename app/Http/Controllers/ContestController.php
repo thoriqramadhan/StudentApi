@@ -6,6 +6,7 @@ use App\Http\Resources\ContestDetailResource;
 use App\Http\Resources\ContestResource;
 use App\Models\Contest;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Auth;
 
 class ContestController extends Controller
 {
@@ -21,5 +22,17 @@ class ContestController extends Controller
     public function show2($id){
         $post = Contest::findOrFail($id);
         return new ContestDetailResource($post);
+    }
+
+    public function store(Request $request){
+        $request-> validate([
+            'title' => 'required',
+            'level' => 'required'
+        ]);
+
+        $request['author'] = Auth::user()->id;
+        
+        $contest = Contest::create($request->all());
+        return new ContestDetailResource($contest->loadMissing('uploader:id,name'));
     }
 }
