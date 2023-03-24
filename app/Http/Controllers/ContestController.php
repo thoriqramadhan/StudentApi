@@ -41,6 +41,9 @@ class ContestController extends Controller
             'level' => 'required'
         ]);
 
-        return response()->json('sudah dapat digunakan');
+        $contest = Contest::findOrFail($id);
+        $contest -> update($request->all());
+
+        return new ContestDetailResource($contest -> loadMissing('uploader:id,name'));
     }
 }
