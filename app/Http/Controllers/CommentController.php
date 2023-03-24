@@ -16,6 +16,16 @@ class CommentController extends Controller
 
         $request['user_id'] = auth()->user()->id;
         $comment = Comment::create($request->all());
-        return new CommentResource($comment->loadMissing(['commentator:id.name']));
+        return new CommentResource($comment->loadMissing(['commentator:id,name']));
+    }
+
+    public function update(Request $request, $id){
+        $request->validate([
+            'comment_content' => 'required'
+        ]);
+
+        $comment = Comment::findOrFail($id);
+        $comment -> update($request->only('comment_content'));
+        return new CommentResource($comment->loadMissing(['commentator:id,name']));
     }
 }
