@@ -1,6 +1,7 @@
 <?php
 
 use App\Http\Controllers\AuthenticationController;
+use App\Http\Controllers\CommentController;
 use App\Http\Controllers\ContestController;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
@@ -22,6 +23,8 @@ Route::middleware(['auth:sanctum'])->group(function(){
     Route::patch('/contest/{id}', [ContestController::class, 'update'])->middleware(['contest.owner']);
     Route::delete('/contest/{id}', [ContestController::class, 'delete'])->middleware(['contest.owner']);
 
+
+    Route::post('/comment', [CommentController::class, 'store']);
     Route::get('/logout', [AuthenticationController::class, 'logout']);
     Route::get('/user', [AuthenticationController::class, 'checkUser']);
 });
