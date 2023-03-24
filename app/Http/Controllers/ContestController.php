@@ -16,11 +16,11 @@ class ContestController extends Controller
     }
 
     public function show($id){
-        $contest = Contest::with('uploader:id,name')->findOrFail($id);
+        $contest = Contest::with('uploader:id,name', 'comments:id,contest_id,user_id,comment_content')->findOrFail($id);
         return new ContestDetailResource($contest);
     }
     public function show2($id){
-        $contest = Contest::with('uploader:id,name', 'comments:id,contest_id,user_id,comment_content')->findOrFail($id);
+        $contest = Contest::findOrFail($id);
         return new ContestDetailResource($contest);
     }
 

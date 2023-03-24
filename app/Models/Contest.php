@@ -15,7 +15,8 @@ class Contest extends Model
     protected $fillable =[
         'title',
         'level',
-        'author'
+        'author',
+        'image'
     ];
 
     public function uploader(): BelongsTo
