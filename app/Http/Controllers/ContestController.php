@@ -12,7 +12,7 @@ class ContestController extends Controller
 {
     public function index(){
         $contest = Contest::all();
-        return ContestResource::collection($contest);
+        return ContestResource::collection($contest->loadMissing('uploader:id,name','comments:id,contest_id,user_id,comment_content'));
     }
 
     public function show($id){
@@ -20,8 +20,8 @@ class ContestController extends Controller
         return new ContestDetailResource($contest);
     }
     public function show2($id){
-        $post = Contest::findOrFail($id);
-        return new ContestDetailResource($post);
+        $contest = Contest::with('uploader:id,name', 'comments:id,contest_id,user_id,comment_content')->findOrFail($id);
+        return new ContestDetailResource($contest);
     }
 
     public function store(Request $request){
