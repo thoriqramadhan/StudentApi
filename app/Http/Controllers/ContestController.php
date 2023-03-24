@@ -46,4 +46,13 @@ class ContestController extends Controller
 
         return new ContestDetailResource($contest -> loadMissing('uploader:id,name'));
     }
+
+    public function delete($id){
+        $contest = Contest::findOrFail($id);
+        $contest -> delete();
+
+        return response()->json([
+            'message' => 'data berhasil terhapus'
+        ]);
+    }
 }
