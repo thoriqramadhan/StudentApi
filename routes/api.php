@@ -19,7 +19,7 @@ Route::middleware(['auth:sanctum'])->group(function(){
     Route::get('/contest',[ContestController::class, 'index']);
     Route::get('/contest/{id}',[ContestController::class, 'show']);
     Route::post('/contest', [ContestController::class, 'store']);
-    Route::patch('/contest/{id}', [ContestController::class, 'update']);
+    Route::patch('/contest/{id}', [ContestController::class, 'update'])->middleware(['contest.owner']);
 
     Route::get('/logout', [AuthenticationController::class, 'logout']);
     Route::get('/user', [AuthenticationController::class, 'checkUser']);
