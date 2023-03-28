@@ -17,6 +17,7 @@ class ContestDetailResource extends JsonResource
         return [
             'id' => $this->id,
             'title' => $this->title,
+            'image' =>$this->image,
             'level' => $this->level,
             'author_id' => $this->author,
             'uploader' => $this ->whenLoaded('uploader'),
